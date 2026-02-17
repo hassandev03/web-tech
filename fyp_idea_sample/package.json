@@ -1,0 +1,20 @@
+{
+  "name": "fyp_idea",
+  "version": "1.0.0",
+  "description": "core idea of fyp ",
+  "repository": {
+    "type": "git",
+    "url": "/"
+  },
+  "license": "ISC",
+  "author": "Hassan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "anonymize-nlp": "^1.0.6",
+    "node-ner": "^0.0.3"
+  }
+}
