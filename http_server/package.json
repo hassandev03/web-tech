@@ -1,0 +1,18 @@
+{
+  "name": "d-secure_ai",
+  "version": "1.0.0",
+  "description": "A privacy preserving middleware for LLMs usage.",
+  "keywords": [
+    "privacy"
+  ],
+  "license": "ISC",
+  "author": "Hassan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
+}
