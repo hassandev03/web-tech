@@ -16,7 +16,7 @@ import { AnonymizeNlp } from 'anonymize-nlp';
 const anonymizer = new AnonymizeNlp();
 const anonymizedText = anonymizer.anonymize(
     `Dr. Emily Rodriguez from the Boston office located at 742 Evergreen Terrace, Springfield, IL 62704 
-will be handling your case. You can also reach her assistant, Sarah O'Brien, at sarah.obrien@healthcare-clinic.org 
+will be handling your case. You can also reach her assistant, Sarah Jones, at sarah.obrien@healthcare-clinic.org 
 or at +44-20-7946-0958. Your insurance provider, BlueCross ID: BC-9283746, has pre-approved the procedure.`);
 
 console.log('Anonymized text:');
