@@ -14,7 +14,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@stdlib/string-replace": "^0.2.3",
     "anonymize-nlp": "^1.0.6",
-    "node-ner": "^0.0.3"
+    "express": "^5.2.1",
+    "node-ner": "^0.0.3",
+    "redis": "^5.11.0",
+    "wink-nlp-utils": "^2.1.0"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^3.0.5"
   }
 }
