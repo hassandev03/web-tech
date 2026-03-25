@@ -1,0 +1,13 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo \"Building web...\"",
+    "lint": "echo \"Linting web...\""
+  },
+  "dependencies": {
+    "ui": "*"
+  }
+}
