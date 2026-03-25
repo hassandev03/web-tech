@@ -1,24 +1,22 @@
-const createQuoteService = (quotesRepository) => {
-  const getAllQuotes = async () => {
-    return await quotesRepository.findAll();
-  };
+class QuoteService {
+  constructor(quotesRepository) {
+    this.quotesRepository = quotesRepository;
+  }
 
-  const getQuoteById = async (id) => {
-    return await quotesRepository.findById(id);
-  };
+  async getAllQuotes() {
+    return await this.quotesRepository.findAll();
+  }
 
-  const createQuote = async (quoteData) => {
+  async getQuoteById(id) {
+    return await this.quotesRepository.findById(id);
+  }
+
+  async createQuote(quoteData) {
     if (!quoteData.text || !quoteData.author) {
       throw new Error('Quote text and author are required');
     }
-    return await quotesRepository.create(quoteData);
-  };
+    return await this.quotesRepository.create(quoteData);
+  }
+}
 
-  return {
-    getAllQuotes,
-    getQuoteById,
-    createQuote
-  };
-};
-
-module.exports = createQuoteService;
+module.exports = QuoteService;

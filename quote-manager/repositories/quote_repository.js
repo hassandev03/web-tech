@@ -1,29 +1,29 @@
-// Simulating a database
-let quotes = [
-  { id: 1, text: 'Be yourself; everyone else is already taken.', author: 'Oscar Wilde' },
-  { id: 2, text: 'I have not failed. I\'ve just found 10,000 ways that won\'t work.', author: 'Thomas A. Edison' }
-];
+class QuoteRepository {
+  constructor() {
+    // Simulating a database with an in-memory array
+    this.quotes = [
+      { id: 1, text: 'Be yourself; everyone else is already taken.', author: 'Oscar Wilde' },
+      { id: 2, text: 'I have not failed. I\'ve just found 10,000 ways that won\'t work.', author: 'Thomas A. Edison' }
+    ];
+  }
 
-const findAll = async () => {
-  return quotes;
-};
+  async findAll() {
+    return this.quotes;
+  }
 
-const findById = async (id) => {
-  return quotes.find(q => q.id === parseInt(id));
-};
+  async findById(id) {
+    return this.quotes.find(q => q.id === parseInt(id));
+  }
 
-const create = async (quoteData) => {
-  const newQuote = {
-    id: quotes.length + 1,
-    text: quoteData.text,
-    author: quoteData.author
-  };
-  quotes.push(newQuote);
-  return newQuote;
-};
+  async create(quoteData) {
+    const newQuote = {
+      id: this.quotes.length + 1,
+      text: quoteData.text,
+      author: quoteData.author
+    };
+    this.quotes.push(newQuote);
+    return newQuote;
+  }
+}
 
-module.exports = {
-  findAll,
-  findById,
-  create
-};
+module.exports = QuoteRepository;
