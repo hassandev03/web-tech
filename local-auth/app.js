@@ -1,41 +1,76 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express        = require('express');
+const session        = require('express-session');
+const passport       = require('passport');
+const LocalStrategy  = require('passport-local').Strategy;
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
+// sample database simulation
+const users = [
+    { id: 1, username: 'hassandev03', password: 'devmh123' }
+];
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(session({
+    secret:            'ssshhhhh',
+    resave:            false,
+    saveUninitialized: false
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+passport.use(new LocalStrategy(function(username, password, done) {
+    const user = users.find(u => u.username === username);
+
+    if (!user) {
+        return done(null, false, { message: 'User not found.' });
+    }
+    if (user.password !== password) {
+        return done(null, false, { message: 'Incorrect password.' });
+    }
+
+    return done(null, user);  
+}));
+
+
+// serialization and deserialization of user
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+passport.deserializeUser(function(id, done) {
+    const user = users.find(u => u.id === id);
+    done(null, user);
+});
+
+// this function checks that the user is logged in before allowing access 
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) return next();
+    res.status(401).json({ message: 'Unauthorized. Please login first.' });
+}
+
+app.post('/login', passport.authenticate('local', { session: true }), (req, res) => {
+    res.json({ message: 'Login successful', user: req.user.username });
+});
+
+
+app.get('/profile', isLoggedIn, (req, res) => {
+    res.json({ message: 'Welcome!', user: req.user.username });
+});
+
+
+app.get('/logout', (req, res) => {
+    req.logout(function(err) {
+        if (err) return res.status(500).json({ message: 'Logout failed' });
+        res.json({ message: 'Logged out successfully' });
+    });
 });
 
 module.exports = app;
