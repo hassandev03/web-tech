@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { writeFile } from 'fs/promises';
+import {readFile} from 'fs/promises';
 import http from 'http'
 import zlib from 'zlib'
 
@@ -69,6 +70,7 @@ http.createServer(async function (req, res) {
             const readStream = fs.createReadStream('D:\\FYP\\script.txt')
             res.writeHead(200, { 'Content-Type': 'text/plain' })
             readStream.pipe(res);
+            
             readStream.pipe(zlib.createGzip()).pipe(fs.createWriteStream('C:\\Users\\Hassan\\Documents\\Advanced-Web-Lab\\routing_and_streaming\\script_copy.txt.gz'))
         }
         catch (err) {
