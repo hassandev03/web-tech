@@ -15,7 +15,7 @@ const debugMiddleware = (req, res, next) => {
 app.use(debugMiddleware);
 
 app.get('/data', (req, res) => {
-  const response = { success: true, user: 'John Doe' };
+  const response = { success: true, user: 'Muhammad Hassan Raza' };
   
   if (req.debugInfo) {
     response._debug = req.debugInfo; // Attach debug info conditionally
