@@ -1,10 +1,9 @@
 const express = require('express');
-const requestTimer = require('request-timer-pkg');
+const reqIdGen = require('./req-id-generator');
 const app = express();
 
-app.use(requestTimer);
+app.use(reqIdGen);
 
-app.get('/', (req, res) => res.send('Hello from App 1'));
-app.get('/slow', (req, res) => setTimeout(() => res.send('Delayed response'), 500));
+app.get('/', (req, res) => res.json({ app: 'App 1', assignedRequestId: req.id }));
 
-app.listen(3007, () => console.log('Task 8 (App 1) running on http://localhost:3007'));
+app.listen(3007, () => console.log('Task 8 (App 1) running on port 3007'));

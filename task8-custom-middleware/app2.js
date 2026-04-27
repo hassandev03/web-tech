@@ -1,9 +1,9 @@
 const express = require('express');
-const requestTimer = require('request-timer-pkg');
+const reqIdGen = require('./req-id-generator');
 const app = express();
 
-app.use(requestTimer);
+app.use(reqIdGen);
 
-app.get('/dashboard', (req, res) => res.send('Dashboard data from App 2'));
+app.get('/status', (req, res) => res.json({ app: 'App 2', status: 'OK', assignedRequestId: req.id }));
 
-app.listen(3008, () => console.log('Task 8 (App 2) running on http://localhost:3008'));
+app.listen(3008, () => console.log('Task 8 (App 2) running on port 3008'));
